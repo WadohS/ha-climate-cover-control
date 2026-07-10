@@ -52,7 +52,7 @@ blueprint:
         Example: 145° means the facade points South-East. This is the center direction;
         the next two settings define how many degrees before and after this direction
         count as direct sun on the facade.
-      default: 145
+      default:
       selector:
         number:
           min: 0
@@ -68,7 +68,7 @@ blueprint:
         window. Example: facade 145° with 65° before starts at 80°.
         Increase this if the facade heats early in the morning and covers must stay
         closed sooner.
-      default: 65
+      default:
       selector:
         number:
           min: 0
@@ -83,7 +83,7 @@ blueprint:
         Degrees to add to the facade azimuth to find the end of the sun window.
         Example: facade 145° with 75° after ends at 220°. Increase or decrease this
         to tune when hot-day reopening is allowed after the sun leaves the facade.
-      default: 75
+      default:
       selector:
         number:
           min: 0
@@ -98,7 +98,7 @@ blueprint:
         Minimum sun elevation, in degrees, required for the solar window to count as
         sunny. A small value such as 3° avoids reacting while the sun is still at the
         horizon.
-      default: 3
+      default:
       selector:
         number:
           min: -10
@@ -479,15 +479,17 @@ action:
       direct_sensor_sunny: "{{ sun_direct_sensor != '' and is_state(sun_direct_sensor, 'on') }}"
       sun_azimuth: "{{ state_attr('sun.sun', 'azimuth') | float(0) }}"
       sun_elevation: "{{ state_attr('sun.sun', 'elevation') | float(-90) }}"
-      solar_window_start: "{{ ((facade_azimuth | float) - (solar_window_before | float)) % 360 }}"
-      solar_window_end: "{{ ((facade_azimuth | float) + (solar_window_after | float)) % 360 }}"
+      solar_window_configured: >-
+        {{ facade_azimuth not in [none, ''] and solar_window_before not in [none, ''] and solar_window_after not in [none, ''] and solar_elevation_min not in [none, ''] }}
+      solar_window_start: "{{ ((facade_azimuth | float(0)) - (solar_window_before | float(0))) % 360 }}"
+      solar_window_end: "{{ ((facade_azimuth | float(0)) + (solar_window_after | float(0))) % 360 }}"
       solar_window_sunny: >-
         {% set az = sun_azimuth | float %}
         {% set el = sun_elevation | float %}
         {% set start = solar_window_start | float %}
         {% set end = solar_window_end | float %}
         {% set in_azimuth_window = (start <= end and start <= az <= end) or (start > end and (az >= start or az <= end)) %}
-        {{ el >= (solar_elevation_min | float) and in_azimuth_window }}
+        {{ solar_window_configured and el >= (solar_elevation_min | float(0)) and in_azimuth_window }}
       facade_sunny: >-
         {% if sun_detection_mode == 'direct_sensor' %}
           {{ direct_sensor_sunny }}
