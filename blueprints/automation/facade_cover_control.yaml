@@ -176,92 +176,92 @@ blueprint:
               value: "12"
 
     respect_sunrise:
-      name: Respecter le lever du soleil
-      description: Si activé, n'ouvre pas avant que sun.sun soit au-dessus de l'horizon.
+      name: Respect sunrise
+      description: If enabled, covers will not open before sun.sun is above the horizon.
       default: true
       selector:
         boolean: {}
 
     monday_open_time:
-      name: Ouverture lundi
+      name: Monday opening time
       default: "07:30:00"
       selector: { time: {} }
     tuesday_open_time:
-      name: Ouverture mardi
+      name: Tuesday opening time
       default: "07:30:00"
       selector: { time: {} }
     wednesday_open_time:
-      name: Ouverture mercredi
+      name: Wednesday opening time
       default: "07:30:00"
       selector: { time: {} }
     thursday_open_time:
-      name: Ouverture jeudi
+      name: Thursday opening time
       default: "07:30:00"
       selector: { time: {} }
     friday_open_time:
-      name: Ouverture vendredi
+      name: Friday opening time
       default: "07:30:00"
       selector: { time: {} }
     saturday_open_time:
-      name: Ouverture samedi
+      name: Saturday opening time
       default: "09:00:00"
       selector: { time: {} }
     sunday_open_time:
-      name: Ouverture dimanche
+      name: Sunday opening time
       default: "09:00:00"
       selector: { time: {} }
 
     workday_sensor:
-      name: Capteur jour travaillé optionnel
-      description: Si renseigné, on utilise workday_open_time quand on, non_workday_open_time quand off.
+      name: Optional workday sensor
+      description: If set, workday_open_time is used when on, and non_workday_open_time when off.
       default: ""
       selector:
         entity:
           domain: binary_sensor
     workday_open_time:
-      name: Heure jour travaillé
+      name: Workday opening time
       default: "07:30:00"
       selector: { time: {} }
     non_workday_open_time:
-      name: Heure jour non travaillé
+      name: Non-workday opening time
       default: "09:00:00"
       selector: { time: {} }
 
     holiday_sensor:
-      name: Capteur jour férié optionnel
+      name: Optional holiday sensor
       default: ""
       selector:
         entity:
           domain: binary_sensor
     holiday_open_time:
-      name: Heure jour férié
+      name: Holiday opening time
       default: "09:00:00"
       selector: { time: {} }
 
     vacation_sensor:
-      name: Capteur vacances optionnel
+      name: Optional vacation sensor
       default: ""
       selector:
         entity:
           domain: binary_sensor
     vacation_mode:
-      name: Comportement en vacances
+      name: Vacation behavior
       default: normal
       selector:
         select:
           options:
             - label: Normal
               value: normal
-            - label: Garder fermé
+            - label: Keep closed
               value: keep_closed
-            - label: Ouvrir partiellement
+            - label: Open partially
               value: partial_open
     vacation_open_time:
-      name: Heure vacances
+      name: Vacation opening time
       default: "10:00:00"
       selector: { time: {} }
     vacation_open_position:
-      name: Position ouverture vacances
+      name: Vacation opening position
       default: 30
       selector:
         number:
@@ -272,8 +272,8 @@ blueprint:
           mode: slider
 
     absence_sensor:
-      name: Capteur absence/sécurité optionnel
-      description: Si on, bloque les ouvertures automatiques. La fermeture soir reste active.
+      name: Optional absence/security sensor
+      description: If on, automatic opening is blocked. Evening closing remains active.
       default: ""
       selector:
         entity:
@@ -316,51 +316,51 @@ blueprint:
           mode: slider
 
     close_offset_jan:
-      name: Offset fermeture janvier
+      name: January close offset
       default: -15
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_feb:
-      name: Offset fermeture février
+      name: February close offset
       default: -10
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_mar:
-      name: Offset fermeture mars
+      name: March close offset
       default: 0
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_apr:
-      name: Offset fermeture avril
+      name: April close offset
       default: 15
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_may:
-      name: Offset fermeture mai
+      name: May close offset
       default: 30
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_jun:
-      name: Offset fermeture juin
+      name: June close offset
       default: 45
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_jul:
-      name: Offset fermeture juillet
+      name: July close offset
       default: 45
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_aug:
-      name: Offset fermeture août
+      name: August close offset
       default: 35
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_sep:
-      name: Offset fermeture septembre
+      name: September close offset
       default: 20
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_oct:
-      name: Offset fermeture octobre
+      name: October close offset
       default: 5
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_nov:
-      name: Offset fermeture novembre
+      name: November close offset
       default: -5
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
     close_offset_dec:
-      name: Offset fermeture décembre
+      name: December close offset
       default: -15
       selector: { number: { min: -120, max: 120, step: 5, unit_of_measurement: min, mode: box } }
 
@@ -512,7 +512,7 @@ action:
         {{ expand(covers) | selectattr('state', 'ne', 'closed') | list | count > 0 }}
 
   - choose:
-      # Fermeture soir : prioritaire et active même en absence/vacances.
+      # Evening close: priority path, still active during absence/vacation.
       - conditions:
           - condition: template
             value_template: "{{ close_due and any_not_closed and not closed_today }}"
@@ -531,7 +531,7 @@ action:
                       value: >-
                         {{ dict(helper_data, v=1, closed=today_key, last_action='close', forecast_max=forecast_today_max | float, heat_month_active=heat_month_active, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
 
-      # Réouverture après soleil façade lors d'une journée chaude.
+      # Hot-day reopening once the facade is no longer sunny.
       - conditions:
           - condition: trigger
             id:
@@ -566,7 +566,7 @@ action:
                       value: >-
                         {{ dict(helper_data, v=1, hot_reopened=today_key, last_action='hot_reopen', forecast_max=forecast_today_max | float, heat_month_active=heat_month_active, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
 
-      # Ouverture normale dans une fenêtre courte après l'heure prévue.
+      # Normal opening within a short window after the selected opening time.
       - conditions:
           - condition: trigger
             id:
