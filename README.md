@@ -1,4 +1,4 @@
-# ha-facade-cover-control
+# ha-climate-cover-control
 
 Home Assistant blueprint for **Climate Cover Control**: sun-aware and heat-aware facade cover/shutter automation.
 
@@ -46,12 +46,12 @@ close at sunset + monthly offset
 
 Click the button below to import the blueprint directly from GitHub:
 
-[![Open your Home Assistant instance and import the blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-facade-cover-control/main/blueprints/automation/facade_cover_control.yaml)
+[![Open your Home Assistant instance and import the blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml)
 
 Manual import URL:
 
 ```text
-https://raw.githubusercontent.com/WadohS/ha-facade-cover-control/main/blueprints/automation/facade_cover_control.yaml
+https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml
 ```
 
 You can also copy the blueprint file manually to:

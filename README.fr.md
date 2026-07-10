@@ -1,4 +1,4 @@
-# ha-facade-cover-control
+# ha-climate-cover-control
 
 Blueprint Home Assistant **Climate Cover Control** pour la gestion des volets par façade, avec prise en compte du soleil, de la chaleur, des jours travaillés, des vacances et d’une fermeture saisonnière.
 
@@ -46,12 +46,12 @@ fermeture au coucher du soleil + offset mensuel
 
 Cliquez sur le bouton ci-dessous pour importer directement le blueprint depuis GitHub :
 
-[![Ouvrir Home Assistant et importer le blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-facade-cover-control/main/blueprints/automation/facade_cover_control.yaml)
+[![Ouvrir Home Assistant et importer le blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml)
 
 URL d’import manuel :
 
 ```text
-https://raw.githubusercontent.com/WadohS/ha-facade-cover-control/main/blueprints/automation/facade_cover_control.yaml
+https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml
 ```
 
 Il est aussi possible de copier manuellement le fichier blueprint dans Home Assistant :
