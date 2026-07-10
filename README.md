@@ -1,28 +1,12 @@
 # ha-climate-cover-control
 
-<p align="center">
-  <strong>Climate Cover Control</strong><br>
-  Home Assistant blueprint for sun-aware and heat-aware facade cover/shutter automation.
-</p>
+[Français](README.fr.md) | English
 
-<p align="center">
-  <a href="README.fr.md"><strong>🇫🇷 Français</strong></a>
-  &nbsp;·&nbsp;
-  <a href="README.en.md"><strong>🇬🇧 English</strong></a>
-</p>
-
-<p align="center">
-  <a href="https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml">
-    <img alt="Importer le blueprint français" src="https://my.home-assistant.io/badges/blueprint_import.svg">
-  </a>
-  <a href="https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml">
-    <img alt="Import English blueprint" src="https://my.home-assistant.io/badges/blueprint_import.svg">
-  </a>
-</p>
-
----
+Home Assistant blueprint for **Climate Cover Control**: sun-aware and heat-aware facade cover/shutter automation.
 
 This blueprint manages covers/shutters by facade or exposure. It is designed for homes where each facade receives sun at different times and where covers should behave differently during hot days.
+
+[![Open your Home Assistant instance and import the blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml)
 
 ## Features
 
@@ -54,13 +38,61 @@ then reopen partially or fully depending on configuration
 close at sunset + monthly offset
 ```
 
+## Import into Home Assistant
+
+Manual import URL:
+
+```text
+https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml
+```
+
+You can also copy the blueprint file manually to:
+
+```text
+/config/blueprints/automation/climate_cover_control_en.yaml
+```
+
+Then create a new automation from the blueprint in Home Assistant.
+
+## Recommended first test
+
+Start with one facade only, for example kitchen/dining room:
+
+```text
+cover.volet_cuisine
+cover.volet_salle_a_manger
+```
+
+Use either a facade direct-sun binary sensor such as:
+
+```text
+binary_sensor.facade_est_sud_sun_direct
+```
+
+or use the integrated solar window. Example for a South-East facade whose perpendicular wall direction is 145°:
+
+```yaml
+sun_detection_mode: solar_window
+facade_azimuth: 145
+solar_window_before: 65   # 145 - 65 = 80° window start
+solar_window_after: 75    # 145 + 75 = 220° window end
+solar_elevation_min: 3
+```
+
+Disable any other automation controlling the same covers during the test to avoid conflicts.
+
+## Status
+
+Current version: `0.1.3`
+
+This is an early version. Test on a limited set of covers before deploying widely.
+
 ## Documentation
 
-| Français | English |
-|---|---|
-| [Documentation](README.fr.md) | [Documentation](README.en.md) |
-| [Guide de configuration](docs/configuration.fr.md) | [Configuration guide](docs/configuration.en.md) |
-| [Feuille de route](docs/roadmap.fr.md) | [Roadmap](docs/roadmap.en.md) |
+- [Configuration guide — English](docs/configuration.en.md)
+- [Roadmap / ideas — English](docs/roadmap.en.md)
+- [Guide de configuration — Français](docs/configuration.fr.md)
+- [Feuille de route / idées — Français](docs/roadmap.fr.md)
 
 ## License
 
