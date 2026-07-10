@@ -1,6 +1,6 @@
 # ha-facade-cover-control
 
-Home Assistant blueprint for **sun-aware and heat-aware facade cover control**.
+Home Assistant blueprint for **Climate Cover Control**: sun-aware and heat-aware facade cover/shutter automation.
 
 This blueprint manages covers/shutters by facade or exposure. It is designed for homes where each facade receives sun at different times and where covers should behave differently during hot days.
 

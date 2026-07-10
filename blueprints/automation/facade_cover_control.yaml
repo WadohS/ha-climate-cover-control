@@ -1,5 +1,5 @@
 blueprint:
-  name: Facade Cover Control
+  name: Climate Cover Control
   description: >
     Heat-aware and sun-aware cover control per facade/exposure. Handles daily
     forecast maximum temperature, direct sun on the facade, per-day/workday

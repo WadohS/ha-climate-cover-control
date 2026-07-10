@@ -1,6 +1,6 @@
 # ha-facade-cover-control
 
-Blueprint Home Assistant pour la **gestion des volets par façade**, avec prise en compte du soleil, de la chaleur, des jours travaillés, des vacances et d’une fermeture saisonnière.
+Blueprint Home Assistant **Climate Cover Control** pour la gestion des volets par façade, avec prise en compte du soleil, de la chaleur, des jours travaillés, des vacances et d’une fermeture saisonnière.
 
 Ce blueprint est prévu pour les maisons où chaque façade reçoit le soleil à des moments différents et où les volets ne doivent pas tous réagir de la même manière.
 
