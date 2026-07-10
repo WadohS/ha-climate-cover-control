@@ -1,9 +1,15 @@
 # Changelog
 
+## 0.1.3
+
+- Add separate English and French blueprint files so users can choose the Home Assistant blueprint UI language.
+- Turn the main README into a language selection landing page, similar to HACS-style GitHub project pages.
+- Update import URLs and examples to use `climate_cover_control_en.yaml` or `climate_cover_control_fr.yaml`.
+
 ## 0.1.2
 
 - Rename the blueprint UI name to `Climate Cover Control`.
-- Rename the blueprint YAML file to `climate_cover_control.yaml`.
+- Rename the blueprint YAML file to `climate_cover_control_en.yaml` / `climate_cover_control_fr.yaml`.
 - Add integrated solar-window sun detection using `sun.sun` azimuth/elevation.
 - Make the direct-sun binary sensor optional when solar-window detection is used.
 - Add facade-centered configuration: `facade_azimuth`, `solar_window_before`, `solar_window_after`, and `solar_elevation_min`.

@@ -1,6 +1,6 @@
 alias: Facade chambres - cover control
 use_blueprint:
-  path: climate_cover_control.yaml
+  path: climate_cover_control_fr.yaml
   input:
     covers:
       - cover.volet_chambre_verte

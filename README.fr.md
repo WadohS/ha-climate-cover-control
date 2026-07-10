@@ -4,6 +4,15 @@ Blueprint Home Assistant **Climate Cover Control** pour la gestion des volets pa
 
 Ce blueprint est prévu pour les maisons où chaque façade reçoit le soleil à des moments différents et où les volets ne doivent pas tous réagir de la même manière.
 
+## Langue / interface du blueprint
+
+Choisissez le fichier blueprint correspondant à la langue voulue dans l’interface Home Assistant :
+
+| Langue | Fichier blueprint | Import |
+|---|---|---|
+| Français | `blueprints/automation/climate_cover_control_fr.yaml` | [![Importer le blueprint français](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml) |
+| English | `blueprints/automation/climate_cover_control_en.yaml` | [![Import English blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml) |
+
 ## Fonctionnalités
 
 - Pilotage de plusieurs volets pour une même façade/exposition.
@@ -15,14 +24,6 @@ Ce blueprint est prévu pour les maisons où chaque façade reçoit le soleil à
 - Capteurs optionnels : jour travaillé, jour férié, vacances, absence/sécurité.
 - Fermeture au coucher du soleil avec offsets mensuels configurables.
 - Fonctionne localement dans Home Assistant.
-
-## Blueprint
-
-Fichier :
-
-```text
-blueprints/automation/climate_cover_control.yaml
-```
 
 ## Principe
 
@@ -44,20 +45,31 @@ fermeture au coucher du soleil + offset mensuel
 
 ## Importer dans Home Assistant
 
-Cliquez sur le bouton ci-dessous pour importer directement le blueprint depuis GitHub :
+Interface française :
 
-[![Ouvrir Home Assistant et importer le blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml)
+[![Ouvrir Home Assistant et importer le blueprint français](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml)
 
 URL d’import manuel :
 
 ```text
-https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml
+https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml
 ```
 
-Il est aussi possible de copier manuellement le fichier blueprint dans Home Assistant :
+Interface anglaise :
+
+[![Ouvrir Home Assistant et importer le blueprint anglais](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml)
+
+URL d’import manuel :
 
 ```text
-/config/blueprints/automation/climate_cover_control.yaml
+https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml
+```
+
+Il est aussi possible de copier manuellement le fichier blueprint voulu dans Home Assistant :
+
+```text
+/config/blueprints/automation/climate_cover_control_fr.yaml
+/config/blueprints/automation/climate_cover_control_en.yaml
 ```
 
 Puis créer une automatisation à partir du blueprint dans Home Assistant.
@@ -91,12 +103,13 @@ Pendant les tests, désactiver les autres automatisations qui pilotent les même
 
 ## Statut
 
-Version actuelle : `0.1.2`
+Version actuelle : `0.1.3`
 
 Version initiale. À tester sur un petit groupe de volets avant généralisation.
 
 ## Documentation
 
+- [Accueil / choix de langue](README.md)
 - [Guide de configuration — Français](docs/configuration.fr.md)
 - [Feuille de route / idées — Français](docs/roadmap.fr.md)
 - [Configuration guide — English](docs/configuration.en.md)

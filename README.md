@@ -1,107 +1,46 @@
 # ha-climate-cover-control
 
-Home Assistant blueprint for **Climate Cover Control**: sun-aware and heat-aware facade cover/shutter automation.
+<p align="center">
+  <strong>Climate Cover Control</strong><br>
+  Home Assistant blueprint for sun-aware and heat-aware cover/shutter automation.
+</p>
 
-This blueprint manages covers/shutters by facade or exposure. It is designed for homes where each facade receives sun at different times and where covers should behave differently during hot days.
+<p align="center">
+  <a href="README.en.md">🇬🇧 English</a> ·
+  <a href="README.fr.md">🇫🇷 Français</a>
+</p>
 
-## Features
+---
 
-- Control multiple covers as one facade group.
-- Block morning opening on hot days based on the daily forecast maximum temperature.
-- Reopen after the sun no longer hits the facade.
-- Optional integrated solar window using `sun.sun` azimuth/elevation, so a separate direct-sun binary sensor is not required.
-- Optional partial reopening after a hot day sun block.
-- Per-day opening times.
-- Optional workday, holiday, vacation, and absence/security sensors.
-- Evening closing based on sunset with configurable monthly offsets.
-- Local Home Assistant automation; no cloud dependency besides your configured weather provider.
+## Choose your language / Choisir la langue
 
-## Blueprint
+The Home Assistant blueprint UI language depends on the YAML file you import. Pick the file matching your preferred interface language.
 
-Blueprint file:
+La langue de l’interface du blueprint dans Home Assistant dépend du fichier YAML importé. Choisissez le fichier correspondant à votre langue.
 
-```text
-blueprints/automation/climate_cover_control.yaml
-```
+| Language / Langue | Documentation | Blueprint file | Import |
+|---|---|---|---|
+| 🇬🇧 English | [README.en.md](README.en.md) | `blueprints/automation/climate_cover_control_en.yaml` | [![Import English blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml) |
+| 🇫🇷 Français | [README.fr.md](README.fr.md) | `blueprints/automation/climate_cover_control_fr.yaml` | [![Importer le blueprint français](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml) |
 
-## Basic idea
+## Repository name
 
-Normal day:
+This repository is now named **ha-climate-cover-control** and the blueprint is **Climate Cover Control**.
 
-```text
-open at the configured time, respecting sunrise if enabled
-close at sunset + monthly offset
-```
+## What it does
 
-Hot day:
-
-```text
-keep covers closed in the morning
-wait until the facade is no longer in direct sun
-then reopen partially or fully depending on configuration
-close at sunset + monthly offset
-```
-
-## Import into Home Assistant
-
-Click the button below to import the blueprint directly from GitHub:
-
-[![Open your Home Assistant instance and import the blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml)
-
-Manual import URL:
-
-```text
-https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml
-```
-
-You can also copy the blueprint file manually to:
-
-```text
-/config/blueprints/automation/climate_cover_control.yaml
-```
-
-Then create a new automation from the blueprint in Home Assistant.
-
-## Recommended first test
-
-Start with one facade only, for example kitchen/dining room:
-
-```text
-cover.volet_cuisine
-cover.volet_salle_a_manger
-```
-
-Use either a facade direct-sun binary sensor such as:
-
-```text
-binary_sensor.facade_est_sud_sun_direct
-```
-
-or use the integrated solar window. Example for a South-East facade whose perpendicular wall direction is 145°:
-
-```yaml
-sun_detection_mode: solar_window
-facade_azimuth: 145
-solar_window_before: 65   # 145 - 65 = 80° window start
-solar_window_after: 75    # 145 + 75 = 220° window end
-solar_elevation_min: 3
-```
-
-Disable any other automation controlling the same covers during the test to avoid conflicts.
-
-## Status
-
-Current version: `0.1.2`
-
-This is an early version. Test on a limited set of covers before deploying widely.
+- Controls several covers/shutters as one facade/exposure group.
+- Blocks morning opening on hot days based on the daily forecast maximum temperature.
+- Reopens after the sun no longer hits the facade.
+- Can use either a direct-sun binary sensor or an integrated solar window based on `sun.sun` azimuth/elevation.
+- Supports workday, holiday, vacation, absence/security sensors, partial reopening and monthly sunset close offsets.
 
 ## Documentation
 
-- [Configuration guide — English](docs/configuration.en.md)
-- [Roadmap / ideas — English](docs/roadmap.en.md)
-- [Guide de configuration — Français](docs/configuration.fr.md)
-- [Feuille de route / idées — Français](docs/roadmap.fr.md)
-- [README français](README.fr.md)
+- 🇬🇧 [English documentation](README.en.md)
+- 🇫🇷 [Documentation française](README.fr.md)
+- 🇬🇧 [Configuration guide](docs/configuration.en.md)
+- 🇫🇷 [Guide de configuration](docs/configuration.fr.md)
 
 ## License
 
