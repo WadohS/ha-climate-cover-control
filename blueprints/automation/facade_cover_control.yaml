@@ -383,9 +383,8 @@ action:
                     value_template: "{{ status_helper != '' }}"
                 sequence:
                   - service: input_text.set_value
-                    target:
-                      entity_id: !input status_helper
                     data:
+                      entity_id: "{{ status_helper }}"
                       value: >-
                         {{ dict(helper_data, v=1, closed=today_key, last_action='close', forecast_max=forecast_today_max | float, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
 
@@ -420,9 +419,8 @@ action:
                     value_template: "{{ status_helper != '' }}"
                 sequence:
                   - service: input_text.set_value
-                    target:
-                      entity_id: !input status_helper
                     data:
+                      entity_id: "{{ status_helper }}"
                       value: >-
                         {{ dict(helper_data, v=1, hot_reopened=today_key, last_action='hot_reopen', forecast_max=forecast_today_max | float, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
 
@@ -457,8 +455,7 @@ action:
                     value_template: "{{ status_helper != '' }}"
                 sequence:
                   - service: input_text.set_value
-                    target:
-                      entity_id: !input status_helper
                     data:
+                      entity_id: "{{ status_helper }}"
                       value: >-
                         {{ dict(helper_data, v=1, opened=today_key, last_action='open', forecast_max=forecast_today_max | float, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
