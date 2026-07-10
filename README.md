@@ -21,7 +21,7 @@ This blueprint manages covers/shutters by facade or exposure. It is designed for
 Blueprint file:
 
 ```text
-blueprints/automation/facade_cover_control.yaml
+blueprints/automation/climate_cover_control.yaml
 ```
 
 ## Basic idea
@@ -46,18 +46,18 @@ close at sunset + monthly offset
 
 Click the button below to import the blueprint directly from GitHub:
 
-[![Open your Home Assistant instance and import the blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml)
+[![Open your Home Assistant instance and import the blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml)
 
 Manual import URL:
 
 ```text
-https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml
+https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml
 ```
 
 You can also copy the blueprint file manually to:
 
 ```text
-/config/blueprints/automation/facade_cover_control.yaml
+/config/blueprints/automation/climate_cover_control.yaml
 ```
 
 Then create a new automation from the blueprint in Home Assistant.

@@ -3,6 +3,7 @@
 ## 0.1.2
 
 - Rename the blueprint UI name to `Climate Cover Control`.
+- Rename the blueprint YAML file to `climate_cover_control.yaml`.
 - Add integrated solar-window sun detection using `sun.sun` azimuth/elevation.
 - Make the direct-sun binary sensor optional when solar-window detection is used.
 - Add facade-centered configuration: `facade_azimuth`, `solar_window_before`, `solar_window_after`, and `solar_elevation_min`.

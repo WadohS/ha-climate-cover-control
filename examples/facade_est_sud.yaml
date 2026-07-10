@@ -1,6 +1,6 @@
 alias: Facade Est/Sud - cover control
 use_blueprint:
-  path: facade_cover_control.yaml
+  path: climate_cover_control.yaml
   input:
     covers:
       - cover.volet_cuisine

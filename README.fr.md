@@ -21,7 +21,7 @@ Ce blueprint est prévu pour les maisons où chaque façade reçoit le soleil à
 Fichier :
 
 ```text
-blueprints/automation/facade_cover_control.yaml
+blueprints/automation/climate_cover_control.yaml
 ```
 
 ## Principe
@@ -46,18 +46,18 @@ fermeture au coucher du soleil + offset mensuel
 
 Cliquez sur le bouton ci-dessous pour importer directement le blueprint depuis GitHub :
 
-[![Ouvrir Home Assistant et importer le blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml)
+[![Ouvrir Home Assistant et importer le blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml)
 
 URL d’import manuel :
 
 ```text
-https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/facade_cover_control.yaml
+https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control.yaml
 ```
 
 Il est aussi possible de copier manuellement le fichier blueprint dans Home Assistant :
 
 ```text
-/config/blueprints/automation/facade_cover_control.yaml
+/config/blueprints/automation/climate_cover_control.yaml
 ```
 
 Puis créer une automatisation à partir du blueprint dans Home Assistant.
