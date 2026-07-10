@@ -13,6 +13,24 @@ Pour chaque instance, choisir :
 - le seuil de journée chaude ;
 - les offsets mensuels de fermeture.
 
+## Helper de statut optionnel
+
+Le blueprint peut utiliser un `input_text` optionnel comme petite mémoire persistante, inspirée de CCA.
+
+Créer un helper par façade / instance d’automatisation, par exemple :
+
+```text
+input_text.facade_est_sud_cover_status
+```
+
+Le helper stocke du JSON avec les actions déjà faites aujourd’hui : ouverture normale, réouverture après chaleur, fermeture du soir. Cela permet d’éviter les répétitions après un rechargement ou un redémarrage.
+
+Si aucun helper n’est sélectionné, le blueprint fonctionne quand même, mais avec moins d’état persistant.
+
+Le helper stocke aussi la température max prévue utilisée pour la dernière action (`forecast_max`) et si la journée a été considérée comme chaude (`hot_day`). C’est utile pour diagnostiquer une mauvaise entité météo.
+
+Pour la chaleur, choisir une entité météo dont la prévision daily contient bien la température max de la journée. Dans cette installation, `weather.tacoignieres` / Météo-France semble être un meilleur candidat qu’une entité météo dont la température affichée est surtout la température actuelle.
+
 ## Capteur soleil direct
 
 Le blueprint attend un capteur binaire :

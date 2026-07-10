@@ -80,7 +80,7 @@ Disable any other automation controlling the same covers during the test to avoi
 
 ## Status
 
-Current version: `0.1.0`
+Current version: `0.1.1`
 
 This is an early version. Test on a limited set of covers before deploying widely.
 

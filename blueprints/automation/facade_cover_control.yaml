@@ -23,6 +23,17 @@ blueprint:
         entity:
           domain: binary_sensor
 
+    status_helper:
+      name: Helper statut optionnel
+      description: >
+        Input text optionnel, inspiré de CCA, utilisé comme petite mémoire persistante
+        par façade. Il stocke les actions du jour pour éviter les répétitions après
+        redémarrage/rechargement. Créer un input_text par instance/façade si utilisé.
+      default: ""
+      selector:
+        entity:
+          domain: input_text
+
     weather_entity:
       name: Entité météo pour prévision max du jour
       description: Utilisée avec weather.get_forecasts type daily.
@@ -264,6 +275,7 @@ action:
   - variables:
       covers: !input covers
       sun_direct_sensor: !input sun_direct_sensor
+      status_helper: !input status_helper
       weather_entity: !input weather_entity
       heat_threshold: !input heat_threshold
       respect_sunrise: !input respect_sunrise
@@ -341,6 +353,16 @@ action:
         {% endif %}
       hot_day: "{{ forecast_today_max | float >= heat_threshold | float }}"
       facade_sunny: "{{ is_state(sun_direct_sensor, 'on') }}"
+      today_key: "{{ now().date() | string }}"
+      helper_data: >-
+        {% if status_helper != '' %}
+          {{ states(status_helper) | from_json(default={}) }}
+        {% else %}
+          {{ {} }}
+        {% endif %}
+      opened_today: "{{ helper_data.get('opened') == today_key }}"
+      hot_reopened_today: "{{ helper_data.get('hot_reopened') == today_key }}"
+      closed_today: "{{ helper_data.get('closed') == today_key }}"
       any_not_open: >-
         {{ expand(covers) | selectattr('state', 'ne', 'open') | list | count > 0 }}
       any_not_closed: >-
@@ -350,11 +372,22 @@ action:
       # Fermeture soir : prioritaire et active même en absence/vacances.
       - conditions:
           - condition: template
-            value_template: "{{ close_due and any_not_closed }}"
+            value_template: "{{ close_due and any_not_closed and not closed_today }}"
         sequence:
           - service: cover.close_cover
             target:
               entity_id: !input covers
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ status_helper != '' }}"
+                sequence:
+                  - service: input_text.set_value
+                    target:
+                      entity_id: !input status_helper
+                    data:
+                      value: >-
+                        {{ dict(helper_data, v=1, closed=today_key, last_action='close', forecast_max=forecast_today_max | float, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
 
       # Réouverture après soleil façade lors d'une journée chaude.
       - conditions:
@@ -362,9 +395,10 @@ action:
             id:
               - facade_clear
               - start
+              - tick
           - condition: template
             value_template: >-
-              {{ hot_day and open_due and sunrise_ok and not facade_sunny and not absence_on and any_not_open and hot_after_sun_action != 'none' }}
+              {{ hot_day and open_due and sunrise_ok and not facade_sunny and not absence_on and any_not_open and hot_after_sun_action != 'none' and not hot_reopened_today }}
         sequence:
           - choose:
               - conditions:
@@ -380,6 +414,17 @@ action:
               - service: cover.open_cover
                 target:
                   entity_id: !input covers
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ status_helper != '' }}"
+                sequence:
+                  - service: input_text.set_value
+                    target:
+                      entity_id: !input status_helper
+                    data:
+                      value: >-
+                        {{ dict(helper_data, v=1, hot_reopened=today_key, last_action='hot_reopen', forecast_max=forecast_today_max | float, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
 
       # Ouverture normale dans une fenêtre courte après l'heure prévue.
       - conditions:
@@ -390,7 +435,7 @@ action:
               - sunrise
           - condition: template
             value_template: >-
-              {{ open_due and in_open_window and sunrise_ok and not hot_day and not absence_on and any_not_open and not (vacation_on and vacation_mode == 'keep_closed') }}
+              {{ open_due and in_open_window and sunrise_ok and not hot_day and not absence_on and any_not_open and not opened_today and not (vacation_on and vacation_mode == 'keep_closed') }}
         sequence:
           - choose:
               - conditions:
@@ -406,3 +451,14 @@ action:
               - service: cover.open_cover
                 target:
                   entity_id: !input covers
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ status_helper != '' }}"
+                sequence:
+                  - service: input_text.set_value
+                    target:
+                      entity_id: !input status_helper
+                    data:
+                      value: >-
+                        {{ dict(helper_data, v=1, opened=today_key, last_action='open', forecast_max=forecast_today_max | float, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}

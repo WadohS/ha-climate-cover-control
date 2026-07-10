@@ -80,7 +80,7 @@ Pendant les tests, désactiver les autres automatisations qui pilotent les même
 
 ## Statut
 
-Version actuelle : `0.1.0`
+Version actuelle : `0.1.1`
 
 Version initiale. À tester sur un petit groupe de volets avant généralisation.
 
