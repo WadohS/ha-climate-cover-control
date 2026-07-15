@@ -16,7 +16,7 @@ Choose the blueprint file matching the language you want in the Home Assistant b
 ## Features
 
 - Control multiple covers as one facade group.
-- Block morning opening on hot days based on the daily forecast maximum temperature.
+- Configurable morning action on hot days: keep closed, open partially, or open fully.
 - Reopen after the sun no longer hits the facade.
 - Optional integrated solar window using `sun.sun` azimuth/elevation, so a separate direct-sun binary sensor is not required.
 - Optional partial reopening after a hot day sun block.
@@ -37,11 +37,17 @@ close at sunset + monthly offset
 Hot day:
 
 ```text
-keep covers closed in the morning
+keep covers closed in the morning, or open partially/fully depending on configuration
 wait until the facade is no longer in direct sun
 then reopen partially or fully depending on configuration
 close at sunset + monthly offset
 ```
+
+## Blueprints and integration
+
+- **Blueprints**: current functional and recommended version. Import EN: [climate_cover_control_en.yaml](https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml), import FR: [climate_cover_control_fr.yaml](https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml).
+- **Custom integration**: prepared for a future evolution with control groups, per-group azimuth, independent schedules, and before/during/after solar-window phases. See [integration documentation](docs/integration.en.md).
+- Both approaches are intended to coexist during a transition, as long as the same cover is not controlled by both at the same time.
 
 ## Import into Home Assistant
 
@@ -110,8 +116,10 @@ This is an early version. Test on a limited set of covers before deploying widel
 ## Documentation
 
 - [README français](README.fr.md)
+- [Custom integration — preparation / design](docs/integration.en.md)
 - [Configuration guide — English](docs/configuration.en.md)
 - [Roadmap / ideas — English](docs/roadmap.en.md)
+- [Intégration custom — préparation / conception](docs/integration.fr.md)
 - [Guide de configuration — Français](docs/configuration.fr.md)
 - [Feuille de route / idées — Français](docs/roadmap.fr.md)
 

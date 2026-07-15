@@ -8,10 +8,16 @@ Ce blueprint est prévu pour les maisons où chaque façade reçoit le soleil à
 
 [![Ouvrir Home Assistant et importer le blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml)
 
+## Blueprints et intégration
+
+- **Blueprints** : version fonctionnelle recommandée aujourd’hui. Import FR : [climate_cover_control_fr.yaml](https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_fr.yaml), import EN : [climate_cover_control_en.yaml](https://raw.githubusercontent.com/WadohS/ha-climate-cover-control/main/blueprints/automation/climate_cover_control_en.yaml).
+- **Intégration custom** : préparation pour une évolution future avec groupes de contrôle, azimut par groupe, horaires indépendants et phases avant/pendant/après fenêtre solaire. Voir [documentation intégration](docs/integration.fr.md).
+- Les deux approches sont prévues pour pouvoir cohabiter pendant une transition, à condition de ne pas piloter le même volet avec les deux en même temps.
+
 ## Fonctionnalités
 
 - Pilotage de plusieurs volets pour une même façade/exposition.
-- Blocage de l’ouverture du matin lors des journées chaudes, basé sur la température max prévue.
+- Action d’ouverture du matin configurable lors des journées chaudes : garder fermé, ouvrir partiellement, ou ouvrir complètement.
 - Réouverture quand le soleil ne tape plus sur la façade.
 - Fenêtre solaire intégrée optionnelle basée sur l’azimut/élévation de `sun.sun`, pour éviter de dépendre obligatoirement d’un binary sensor soleil direct.
 - Réouverture complète ou partielle configurable.
@@ -32,7 +38,7 @@ fermeture au coucher du soleil + offset mensuel
 Journée chaude :
 
 ```text
-les volets restent fermés le matin
+les volets restent fermés le matin, ou s’ouvrent partiellement/complètement selon le réglage
 ils peuvent rouvrir lorsque le soleil ne tape plus sur la façade
 la réouverture peut être partielle ou complète
 fermeture au coucher du soleil + offset mensuel
@@ -89,8 +95,10 @@ Version initiale. À tester sur un petit groupe de volets avant généralisation
 
 ## Documentation
 
+- [Intégration custom — préparation / conception](docs/integration.fr.md)
 - [Guide de configuration — Français](docs/configuration.fr.md)
 - [Feuille de route / idées — Français](docs/roadmap.fr.md)
+- [Custom integration — preparation / design](docs/integration.en.md)
 - [Configuration guide — English](docs/configuration.en.md)
 - [Roadmap / ideas — English](docs/roadmap.en.md)
 

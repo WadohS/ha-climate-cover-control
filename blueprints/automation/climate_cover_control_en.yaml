@@ -279,6 +279,33 @@ blueprint:
         entity:
           domain: binary_sensor
 
+    hot_morning_action:
+      name: Hot-day morning opening action
+      description: >
+        What to do at the normal opening time when a hot day is forecast.
+        Keep closed preserves the blueprint's historical behavior. Open partially
+        can be used for a minimal opening such as 8% to let in some light/air.
+      default: keep_closed
+      selector:
+        select:
+          options:
+            - label: Keep closed
+              value: keep_closed
+            - label: Open partially
+              value: partial_open
+            - label: Open fully
+              value: full_open
+    hot_morning_position:
+      name: Hot-day morning opening position
+      default: 8
+      selector:
+        number:
+          min: 0
+          max: 100
+          step: 1
+          unit_of_measurement: "%"
+          mode: slider
+
     hot_after_sun_action:
       name: Hot-day action after facade sun ends
       description: What to do on hot days once direct sun no longer hits this facade.
@@ -417,6 +444,8 @@ action:
       vacation_sensor: !input vacation_sensor
       absence_sensor: !input absence_sensor
       vacation_mode: !input vacation_mode
+      hot_morning_action: !input hot_morning_action
+      hot_morning_position: !input hot_morning_position
       hot_after_sun_action: !input hot_after_sun_action
       hot_after_sun_position: !input hot_after_sun_position
       vacation_open_position: !input vacation_open_position
@@ -554,6 +583,42 @@ action:
                       entity_id: "{{ status_helper }}"
                       value: >-
                         {{ dict(helper_data, v=1, closed=today_key, last_action='close', forecast_max=forecast_today_max | float, heat_month_active=heat_month_active, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
+
+      # Hot-day morning opening within the normal opening window.
+      - conditions:
+          - condition: trigger
+            id:
+              - tick
+              - start
+              - sunrise
+          - condition: template
+            value_template: >-
+              {{ open_due and in_open_window and sunrise_ok and hot_day and not absence_on and any_not_open and not opened_today and hot_morning_action != 'keep_closed' and not (vacation_on and vacation_mode == 'keep_closed') }}
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ hot_morning_action == 'partial_open' }}"
+                sequence:
+                  - service: cover.set_cover_position
+                    target:
+                      entity_id: !input covers
+                    data:
+                      position: !input hot_morning_position
+            default:
+              - service: cover.open_cover
+                target:
+                  entity_id: !input covers
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ status_helper != '' }}"
+                sequence:
+                  - service: input_text.set_value
+                    data:
+                      entity_id: "{{ status_helper }}"
+                      value: >-
+                        {{ dict(helper_data, v=1, opened=today_key, last_action='hot_morning_open', forecast_max=forecast_today_max | float, heat_month_active=heat_month_active, hot_day=hot_day, ts=as_timestamp(now()) | int) | to_json }}
 
       # Hot-day reopening once the facade is no longer sunny.
       - conditions:

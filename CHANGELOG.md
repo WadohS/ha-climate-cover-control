@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Add hot-day morning opening behavior to the blueprints: keep closed, open partially, or open fully.
+- Add a default 8% hot-day morning partial-opening position with 1% precision.
+- Add an initial custom integration scaffold under `custom_components/climate_cover_control/`.
+- Document the future integration model and intended coexistence with the blueprints.
+
 ## 0.1.3
 
 - Add separate English and French blueprint files so users can choose the Home Assistant blueprint UI language.

@@ -1,0 +1,12 @@
+{
+  "domain": "climate_cover_control",
+  "name": "Climate Cover Control",
+  "codeowners": ["@WadohS"],
+  "config_flow": false,
+  "documentation": "https://github.com/WadohS/ha-climate-cover-control",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/WadohS/ha-climate-cover-control/issues",
+  "requirements": [],
+  "version": "0.0.0-dev"
+}
