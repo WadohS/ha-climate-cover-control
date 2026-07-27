@@ -550,6 +550,20 @@ action:
       closed_today: "{{ helper_data.get('closed') == today_key }}"
       any_not_open: >-
         {{ expand(covers) | selectattr('state', 'ne', 'open') | list | count > 0 }}
+      hot_after_sun_targets: >-
+        {% set target = 100 if hot_after_sun_action == 'full_open' else hot_after_sun_position | int %}
+        {% set ns = namespace(entities=[]) %}
+        {% for cover in expand(covers) %}
+          {% set pos = cover.attributes.current_position %}
+          {% if pos is number and pos | int < target %}
+            {% set ns.entities = ns.entities + [cover.entity_id] %}
+          {% elif pos is not number and cover.state != 'open' %}
+            {% set ns.entities = ns.entities + [cover.entity_id] %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.entities | join(', ') }}
+      any_below_hot_after_sun_target: >-
+        {{ hot_after_sun_targets | trim != '' }}
       any_not_closed: >-
         {{ expand(covers) | selectattr('state', 'ne', 'closed') | list | count > 0 }}
       evening_manual_override_active: >-
@@ -628,7 +642,7 @@ action:
               - tick
           - condition: template
             value_template: >-
-              {{ hot_day and open_due and not close_due and sunrise_ok and not facade_sunny and not absence_on and any_not_open and hot_after_sun_action != 'none' and not hot_reopened_today }}
+              {{ hot_day and open_due and not close_due and sunrise_ok and not facade_sunny and not absence_on and any_below_hot_after_sun_target and hot_after_sun_action != 'none' and not hot_reopened_today }}
         sequence:
           - choose:
               - conditions:
@@ -637,13 +651,13 @@ action:
                 sequence:
                   - service: cover.set_cover_position
                     target:
-                      entity_id: !input covers
+                      entity_id: "{{ hot_after_sun_targets }}"
                     data:
                       position: !input hot_after_sun_position
             default:
               - service: cover.open_cover
                 target:
-                  entity_id: !input covers
+                  entity_id: "{{ hot_after_sun_targets }}"
           - choose:
               - conditions:
                   - condition: template
