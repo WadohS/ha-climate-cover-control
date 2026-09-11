@@ -549,8 +549,15 @@ action:
       opened_today: "{{ helper_data.get('opened') == today_key }}"
       hot_reopened_today: "{{ helper_data.get('hot_reopened') == today_key }}"
       closed_today: "{{ helper_data.get('closed') == today_key }}"
-      any_not_open: >-
-        {{ expand(covers) | selectattr('state', 'ne', 'open') | list | count > 0 }}
+      any_needing_open: >-
+        {% set ns = namespace(needs_open=false) %}
+        {% for cover in expand(covers) %}
+          {% set pos = cover.attributes.current_position %}
+          {% if cover.state != 'open' or (pos is number and pos | float < 95) %}
+            {% set ns.needs_open = true %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.needs_open }}
       hot_after_sun_targets: >-
         {% set target = 100 if hot_after_sun_action == 'full_open' else hot_after_sun_position | int %}
         {% set ns = namespace(entities=[]) %}
@@ -608,7 +615,7 @@ action:
               - sunrise
           - condition: template
             value_template: >-
-              {{ open_due and in_open_window and sunrise_ok and hot_day and not absence_on and any_not_open and not opened_today and hot_morning_action != 'keep_closed' and not (vacation_on and vacation_mode == 'keep_closed') }}
+              {{ open_due and in_open_window and sunrise_ok and hot_day and not absence_on and any_needing_open and not opened_today and hot_morning_action != 'keep_closed' and not (vacation_on and vacation_mode == 'keep_closed') }}
         sequence:
           - choose:
               - conditions:
@@ -679,7 +686,7 @@ action:
               - sunrise
           - condition: template
             value_template: >-
-              {{ open_due and in_open_window and sunrise_ok and not hot_day and not absence_on and any_not_open and not opened_today and not (vacation_on and vacation_mode == 'keep_closed') }}
+              {{ open_due and in_open_window and sunrise_ok and not hot_day and not absence_on and any_needing_open and not opened_today and not (vacation_on and vacation_mode == 'keep_closed') }}
         sequence:
           - choose:
               - conditions:

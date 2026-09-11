@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Treat covers with a known position below 95% as needing their scheduled opening, even when their state is already `open`.
 - Add hot-day morning opening behavior to the blueprints: keep closed, open partially, or open fully.
 - Add a default 8% hot-day morning partial-opening position with 1% precision.
 - Add an initial custom integration scaffold under `custom_components/climate_cover_control/`.
