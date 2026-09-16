@@ -239,11 +239,16 @@ blueprint:
       selector: { time: {} }
 
     vacation_sensor:
-      name: Optional vacation sensor
+      name: Optional vacation sensor or calendar
+      description: >
+        Entity that is on during vacations. Accepts a binary_sensor or a Home Assistant calendar,
+        such as an official school-holiday calendar.
       default: ""
       selector:
         entity:
-          domain: binary_sensor
+          filter:
+            - domain: binary_sensor
+            - domain: calendar
     vacation_mode:
       name: Vacation behavior
       default: normal

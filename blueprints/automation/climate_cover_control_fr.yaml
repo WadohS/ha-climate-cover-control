@@ -240,11 +240,16 @@ blueprint:
       selector: { time: {} }
 
     vacation_sensor:
-      name: Capteur vacances optionnel
+      name: Capteur ou calendrier de vacances optionnel
+      description: >
+        Entité à on pendant les vacances. Accepte un binary_sensor ou un calendrier Home Assistant,
+        par exemple le calendrier officiel des vacances scolaires de la Zone C (Paris).
       default: ""
       selector:
         entity:
-          domain: binary_sensor
+          filter:
+            - domain: binary_sensor
+            - domain: calendar
     vacation_mode:
       name: Comportement vacances
       default: normal
